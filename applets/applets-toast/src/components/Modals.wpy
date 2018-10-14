@@ -19,6 +19,14 @@
 
 
 <script>
+	/*
+	* @authors :@IT·平头哥联盟-首席填坑官(苏南)
+	* @date    :2018-09-26
+	* @description：@IT·平头哥联盟项目示例源码,欢迎投稿讲出你的故事
+	* @github：https://honeybadger8.github.io/blog/
+	* @QQ: 912594095、386485473
+	*/
+	
 	import wepy from 'wepy';
 	//方法以 ： __XX__ 命名，因并入其他组件中后，可能引起方法名重复
 	class Modals extends wepy.component {

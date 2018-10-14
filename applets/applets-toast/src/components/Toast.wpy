@@ -9,7 +9,13 @@
 </template>
 
 <script>
-
+	/*
+	* @authors :@IT·平头哥联盟-首席填坑官(苏南)
+	* @date    :2018-09-26
+	* @description：@IT·平头哥联盟项目示例源码,欢迎投稿讲出你的故事
+	* @github：https://honeybadger8.github.io/blog/
+	* @QQ: 912594095、386485473
+	*/
 
 	import wepy from 'wepy';
 	const __timer__ =1900;
@@ -66,25 +72,25 @@
 			}
 		}
 		/**
-     * 设置元素显示
-     */
-    __setVisible__(className = `ui-animate-fade-in`) {
-    	this.className = `${this.animateCss} ${className}`;
-    	this.visible = !0;
-    	this.$apply();
-    }
+		 * 设置元素显示
+		 */
+		__setVisible__(className = `ui-animate-fade-in`) {
+			this.className = `${this.animateCss} ${className}`;
+			this.visible = !0;
+			this.$apply();
+		}
 
-    /**
-     * 设置元素隐藏
-     */
-    __setHidden__(className = `ui-animate-fade-out`, timer = 300) {
-    	this.className = `${this.animateCss} ${className}`;
-    	this.$apply();
-      setTimeout(() => {
-  			this.visible = !1;
-  			this.$apply();
-      }, timer)
-    }
+		/**
+		 * 设置元素隐藏
+		 */
+		__setHidden__(className = `ui-animate-fade-out`, timer = 300) {
+			this.className = `${this.animateCss} ${className}`;
+			this.$apply();
+			setTimeout(() => {
+				this.visible = !1;
+				this.$apply();
+			}, timer)
+		}
 		/**
 		 * 显示toast组件
 		 * @param {Object} opts 配置项
@@ -118,55 +124,55 @@
 		}
 		__info__(args=[]){
 			let [ message, callback, duration ]  = args;
-	   	this.__show__({
-		    type: 'text',
-		    timer: (duration||__timer__),
-		    color: '#fff',
-		    text: message,
-		    success: () => {callback&&callback()}
-		  });
-	  }
-	  __success__(args=[]){
-	  	let [ message, callback, duration ]  = args;
-	  	this.__show__({
-		    type: 'success',
-		    timer: (duration||__timer__),
-		    color: '#fff',
-		    text: message,
-		    success: () => {callback&&callback()}
-		  });
-	  }
-	  __warning__(args){
-			let [ message, callback, duration ]  = args;
-	  	this.__show__({
-		    type: 'forbidden',
-		    timer: (duration||__timer__),
-		    color: '#fff',
-		    text: message,
-		    success: () => {callback&&callback()}
-		  });
-	  }
-	  __error__(args){
-	  	let [ message, callback, duration ]  = args;
-	  	this.__show__({
-		    type: 'cancel',
-		    timer: (duration||__timer__),
-		    color: '#fff',
-		    text: message,
-		    success: () => {callback&&callback()}
-		  });
-	  }
-	  __showLoading__(options){
-	  	wx.showLoading({
-			  title: (options&&options.title||"加载中"),
+			this.__show__({
+				type: 'text',
+				timer: (duration||__timer__),
+				color: '#fff',
+				text: message,
+				success: () => {callback&&callback()}
 			});
-	  }
-	  __hideLoading__(){
-	  	wx.hideLoading();
-	  }
-	  onLoad(){
-      this.$apply()
-    }
+		}
+		__success__(args=[]){
+			let [ message, callback, duration ]  = args;
+			this.__show__({
+				type: 'success',
+				timer: (duration||__timer__),
+				color: '#fff',
+				text: message,
+				success: () => {callback&&callback()}
+			});
+		}
+		__warning__(args){
+			let [ message, callback, duration ]  = args;
+			this.__show__({
+				type: 'forbidden',
+				timer: (duration||__timer__),
+				color: '#fff',
+				text: message,
+				success: () => {callback&&callback()}
+			});
+		}
+		__error__(args){
+			let [ message, callback, duration ]  = args;
+			this.__show__({
+				type: 'cancel',
+				timer: (duration||__timer__),
+				color: '#fff',
+				text: message,
+				success: () => {callback&&callback()}
+			});
+		}
+		__showLoading__(options){
+			wx.showLoading({
+				title: (options&&options.title||"加载中"),
+			});
+		}
+		__hideLoading__(){
+			wx.hideLoading();
+		}
+		onLoad(){
+			this.$apply()
+		}
 	}
 
 	export default Toast;
@@ -174,54 +180,54 @@
 
 <style lang="less">
 	.ui-toast {
-	  position: fixed;
-	  left: 0;
-	  top: 0;
-	  right: 0;
-	  bottom: 0;
-	  z-index: 9010;
-	  display: none; }
-	  .ui-toast.ui-animate-fade-in {
-	    display: -webkit-box;
-	    display: -webkit-flex;
-	    display: flex;
-	    -webkit-box-align: center;
-	    -webkit-align-items: center;
-	            align-items: center;
-	    -webkit-box-pack: center;
-	    -webkit-justify-content: center;
-	            justify-content: center; }
-	  .ui-toast.ui-animate-fade-out {
-	    display: none; }
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 9010;
+		display: none; }
+		.ui-toast.ui-animate-fade-in {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+							align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+							justify-content: center; }
+		.ui-toast.ui-animate-fade-out {
+			display: none; }
 
 	.ui-toast_bd {
-	  max-width: 70%;
-	  min-width: 180rpx;
-	  padding: 25rpx 30rpx;
-	  border-radius: 12rpx;
-	  background: rgba(0, 0, 0, 0.8);
-	  color: #fff;
-	  text-align: center;
-	  font-size: 30rpx; }
+		max-width: 70%;
+		min-width: 180rpx;
+		padding: 25rpx 30rpx;
+		border-radius: 12rpx;
+		background: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		text-align: center;
+		font-size: 30rpx; }
 
 	.ui-toast_icon {
-	  margin: 10rpx auto 20rpx;
-	  display: block; }
+		margin: 10rpx auto 20rpx;
+		display: block; }
 
 	.ui-toast-text {
-	  margin: 0 0 30rpx;
-	  font-size: 30rpx; }
+		margin: 0 0 30rpx;
+		font-size: 30rpx; }
 
 	.ui-toast-text .ui-toast_bd {
-	  min-height: 0;
-	  padding: 30rpx;
-	  text-overflow: ellipsis; }
+		min-height: 0;
+		padding: 30rpx;
+		text-overflow: ellipsis; }
 
 	.ui-toast_text,
 	.ui-toast-text .ui-toast_text {
-	  margin: 0;
-	  font-size: 30rpx; }
+		margin: 0;
+		font-size: 30rpx; }
 
 	.ui-toast-text .ui-toast_icon {
-	  display: none; }
+		display: none; }
 </style>
