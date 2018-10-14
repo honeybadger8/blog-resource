@@ -14,7 +14,7 @@
 
 + **[每周动画一点点Canvas/Css3系列](./animation-series "Canvas/Css3动画系列 @IT·平头哥联盟-首席填坑官∙苏南")**
 
-    + [如何绘制一辆会跑的车子-Canvas](./animation-series "如何绘制一辆会跑的车子-Canvas @IT·平头哥联盟-首席填坑官∙苏南")
+    + [如何绘制一辆会跑的车子-Canvas](./animation-series/canvas-bike.html "如何绘制一辆会跑的车子-Canvas @IT·平头哥联盟-首席填坑官∙苏南")
 
 + **[javascript](./applets "JS相关的文章源码")**
 + **[小程序系列](./applets "小程序相关的文章源码")**
