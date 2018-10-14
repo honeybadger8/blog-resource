@@ -1,6 +1,6 @@
 ## 小程序文章源码 
-文章名称：[做完小程序项目、老板给我加了6k薪资～](https://juejin.im/post/5ba57b7c5188255c971fda3a)
-作者:@IT·平头哥联盟-首席填坑官(苏南)
+文章名称：[做完小程序项目、老板给我加了6k薪资～](https://juejin.im/post/5ba57b7c5188255c971fda3a "@IT·平头哥联盟-首席填坑官∙苏南分享")
+作者:[@IT·平头哥联盟-首席填坑官∙苏南](https://github.com/meibin08/ "@IT·平头哥联盟-首席填坑官")
 
 
 
@@ -27,7 +27,8 @@
 
 
 
-> 作者：苏南 - 首席填坑官
+
+> 作者：苏南 - [首席填坑官](https://github.com/meibin08/ "@IT·平头哥联盟-首席填坑官")
 >
 > 来源：[@IT·平头哥联盟](https://honeybadger8.github.io/blog/ "@IT·平头哥联盟")
 > 
