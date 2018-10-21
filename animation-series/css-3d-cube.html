@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" contect="平头哥,蜜獾,@IT·平头哥联盟,Honey Badger,Badger,苏南,前端开发,前端,javscript,html,css,nodejs,react reactjs,redux,vue,蜜獾,同构直出,服务端渲染 SSR,程序员,掘金,知乎,github,首席填坑官">
+	<meta name="description" content="@IT·平头哥联盟主要分享前端、测试等领域的积累(前端开发、HTML、CSS/CSS3、新手上路、javascript、js、自动化、性能、接口系列),苏南,首席填坑官,平头哥,蜜獾,个人博客——宝剑锋从磨砺出，梅花香自苦寒来，做有温度的攻城狮,曾想仗剑走天涯 后来BUG太多就没去了">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<meta name="format-detection" content="telephone=no, email=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<title>CSS 3D Cube - @IT·平头哥联盟-首席填坑官∙苏南分享</title>
+		<style>
+		*{margin:0;padding:0;}
+		body{
+			text-align:center;
+			background: -webkit-radial-gradient(center, circle, #00a6ce 5%,#000a21 100%);
+			background: radial-gradient(center, circle, #00a6ce 5%,#000a21 100%);
+		}
+		.cube{
+			width:200px;
+			height:200px;
+			margin:10px auto;
+			padding:260px;
+			position:relative;
+			-webkit-perspective:600px;
+			perspective:600px;
+		}
+		.cube-inner{
+			width:200px;
+			height:200px;
+			position:relative;
+			-webkit-transform-style:preserve-3d;
+			transition:.3s; 
+			/*-webkit-transform-origin:50% 50% -100px -100px;*/
+			-webkit-transform-origin:50% 50% -100px;
+		}
+		.cube-inner .single-side{
+			width:200px;
+			height:200px; 
+			position:absolute; 
+			color:#fff;
+			font-size:50px; 
+			text-align:center;
+		}
+		.cube-inner .single-side span{
+			display:block;
+			line-height:200px;
+		}
+		.cube-inner .single-side:after,.cube-inner .single-side:before{
+			content:"";
+			position: absolute;
+			left:0;
+			right:0;
+			top:0;
+			width:200px;
+			height:1px;
+			transform:scaleX(.8);
+			-webkit-transform:scaleX(.8);
+			background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.58)  50%, rgba(255,255,255,0) 100%);
+			background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.58)  50%,rgba(255,255,255,0) 100%); 
+		}
+		.cube-inner .single-side:after{
+			top:auto;
+			bottom:0;
+		}
+		.cube-inner .single-side span:after,.cube-inner .single-side span:before{ 
+			top:0;bottom:0;
+			left:0;
+			content:"";
+			position: absolute;
+			height:200px;
+			width:1px;
+			transform:scaleY(.8);
+			-webkit-transform:scaleY(.8);
+			background: -webkit-linear-gradient(rgba(255,255,255,0) 0%, rgba(255,255,255,.58) 50%, rgba(255,255,255,0) 100%);
+			background: linear-gradient(rgba(255,255,255,0) 0%, rgba(255,255,255,.58) 50%, rgba(255,255,255,0) 100%);
+		}
+		.cube-inner .single-side span:after{
+			left:auto;
+			right:0;
+		}
+		.cube-inner .single-side.s1{
+			/*s1顶部*/
+			left:0;top:-200px;
+			background: radial-gradient(circle, rgba(255,255,255,.88), #00adff);
+			background: -webkit-radial-gradient(circle, rgba(255,255,255,.88), #00adff);
+			transform-origin:bottom;
+			transform:rotateX(90deg);
+		}
+
+		.cube-inner .single-side.s2{
+			/*s2正面*/
+			left:0;top:0;
+			z-index:6;
+			transform-origin:center;
+			background: radial-gradient(circle, rgba(255,255,255,.88), #8446e4);
+	    background: -webkit-radial-gradient(circle, rgba(255,255,255,.88), #8446e4);
+		}
+		.cube-inner .single-side.s3{
+			/*s3底部*/
+			left:0;top:200px;
+			background: radial-gradient(circle, rgba(255,255,255,.88), #100067);
+			background: -webkit-radial-gradient(circle, rgba(255,255,255,.88), #100067);
+			transform-origin:top;
+			-webkit-transform:rotateX(-90deg);
+		}
+		.cube-inner .single-side.s4{
+			/*s4背部*/
+			z-index:2;
+			left:0;top:0;
+			background: radial-gradient(circle, rgba(255,255,255,.88), #F0C);
+			background: -webkit-radial-gradient(circle, rgba(255,255,255,.88), #F0C);
+			-webkit-transform:translateZ(-200px) rotateX(180deg) ; /*rotateZ(-180deg) 左右旋转的时候，Z轴旋转180°，因为字是倒着的*/
+		}
+		.cube-inner .single-side.s5{
+			/*s5左侧*/
+			left:-200px;top:0;
+			background: radial-gradient(circle, rgba(255,255,255,.88),rgba(33,33,33,1));
+			background: -webkit-radial-gradient(circle, rgba(255,255,255,.88),rgba(33,33,33,1));
+			transform-origin:right;
+			-webkit-transform:rotateY(-90deg)
+		}
+		.cube-inner .single-side.s6{
+			/*s6右侧*/
+			right:-200px;top:0;
+			transform-origin:left;
+			-webkit-transform-origin:left;
+			background: radial-gradient(circle, rgba(255,255,255,.88), #f00);
+			background: -webkit-radial-gradient(circle, rgba(255,255,255,.88), #f00);
+			transform:rotateY(90deg);
+			-webkit-transform:rotateY(90deg);
+		}
+		.cube .cube-inner.running{ 
+			animation: elfCube 10s infinite ease-in-out;
+			-webkit-animation: elfCube 10s infinite ease alternate;
+		}
+
+		@keyframes elfCube {
+			0% { 
+				transform: rotateX(  0deg) rotateY(  0deg); 
+			}
+			50% { 
+				transform: rotateX(360deg) rotateY(360deg); 
+			}
+			100% { 
+				transform: rotateX(0deg) rotateY(0deg); 
+			}
+		}
+		@-webkit-keyframes elfCube {
+			0% {
+			 -webkit-transform: rotateX(  0deg) rotateY(  0deg); 
+			}
+			50% {
+			 -webkit-transform: rotateX(360deg) rotateY(360deg); 
+			}
+			100% { 
+				transform: rotateX(0deg) rotateY(0deg); 
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<div class="cube">
+			<div class="cube-inner running">
+				<p class="single-side s1"><span>最</span></p>
+				<p class="single-side s2"><span>懂</span></p>
+				<p class="single-side s3"><span>你</span></p>
+				<p class="single-side s4"><span>的</span></p>
+				<p class="single-side s5"><span>魔</span></p>
+				<p class="single-side s6"><span>方</span></p>
+			</div>
+		</div>
+	<script>
+		class ElfCube{
+			constructor(props={}){
+				this.cubeEle = null;
+				this.cubeInner = null;
+				this.cubeW = null;
+				this.cubeH = null;
+				this.axisX = 0;
+				this.axisY = 0;
+			}
+			
+			componentDodMount(){
+				//实例，初始化执行的方法
+				this.cubeEle =  document.querySelector(".cube");
+				this.cubeInner = this.cubeEle.querySelector(".cube-inner");
+				this.cubeW = this.cubeEle.offsetWidth;
+				this.cubeH = this.cubeEle.offsetHeight;
+
+				this.run();
+				return this;
+			}
+			run(){
+				this.cubeEle.addEventListener('mouseover',(e)=>this.hoverOut(e),false);
+				this.cubeEle.addEventListener('mousemove',(e)=>this.move(e),false);
+				this.cubeEle.addEventListener('mouseout',(e)=>this.hoverOut(e),false);
+			}
+			getAxisX(e){
+				let left = this.cubeEle.offsetLeft;
+				return e.pageX - left - (this.cubeW/2) * (this.cubeW>this.cubeH ? this.cubeH/this.cubeW : 1);
+			}
+			getAxisY(e){
+				let top = this.cubeEle.offsetTop;
+				return e.pageY - top - (this.cubeH/2) * (this.cubeH>this.cubeW ? this.cubeW/this.cubeH : 1);
+			}
+			hoverOut(e){
+
+				//进入/离开
+				e.preventDefault();
+				this.axisX = this.getAxisX(e),
+				this.axisY = this.getAxisY(e);
+				if(e.type == 'mouseout'){ //离开
+					this.axisX=0;
+					this.axisY = 0;
+					console.log("离开")
+					this.cubeInner.className="cube-inner running";
+				}else{
+					this.cubeInner.className="cube-inner";
+					console.log("进入")
+				};
+				let rotate = `rotateX(${-this.axisY}deg) rotateY(${-this.axisX}deg)`;
+				this.cubeInner.style.WebkitTransform = this.cubeInner.style.transform = rotate;
+			}
+			move(e){
+				
+				e.preventDefault();
+				this.axisX = this.getAxisX(e),
+				this.axisY = this.getAxisY(e);
+				let rotate = `rotateX(${-this.axisY}deg) rotateY(${-this.axisX}deg)`;
+				this.cubeInner.style.WebkitTransform = this.cubeInner.style.transform = rotate;
+
+			}
+		};
+		let ElfCubes = new ElfCube();
+		ElfCubes.componentDodMount();
+
+	</script>
+	</body>
+</html>
