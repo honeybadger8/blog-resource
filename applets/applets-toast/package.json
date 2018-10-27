@@ -1,7 +1,7 @@
 {
   "name": "applets-toast",
   "version": "0.0.2",
-  "description": "大家好，这里是平头哥文章示例源码，我是苏南，欢迎持续关注我们,@IT·平头哥联盟-首席填坑官∙苏南",
+  "description": "大家好，这里是平头哥文章示例源码，我是苏南，欢迎持续关注我们,@IT·平头哥联盟-首席填坑官∙苏南 ，公众号：honeyBadger8",
   "main": "dist/app.js",
   "scripts": {
     "dev": "wepy build --watch",
@@ -28,6 +28,7 @@
     "音乐",
     "网易云音乐nodejs",
     "首席填坑官∙苏南",
+    "公众号：honeyBadger8",
     "@IT·平头哥联盟-首席填坑官∙苏南"
   ],
   "license": "MIT",
