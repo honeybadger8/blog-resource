@@ -116,6 +116,17 @@
 			.page-button.r{
 				right:10px;
 			}
+			.toast-node{
+				position:fixed;
+				top:0;
+				left:50%;
+				transform: translate(-50%,0);
+				padding:8px 10px;
+				background-color: rgba(0,0,0,.9);
+				color:#fff;
+				font-size:12px;
+				border-radius: 5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -197,8 +208,23 @@
 					iDivCol.appendChild(span);
 				};
 			}
+			toast(message,){
+				let toastNode = document.querySelector("#toastNode");
+				if(toastNode){
+					if(!this.status){
+						document.body.removeChild(toastNode);
+					};
+					return ;
+				};
+				toastNode  =document.createElement('span');
+				toastNode.id="toastNode";
+				toastNode.className="toast-node";
+				toastNode.innerHTML = message;
+				document.body.appendChild(toastNode);
+			}
 			pageUp(){
 				if(this.status){
+					this.toast(`上翻，旋转中不能点击`);
 					console.log("上翻，不能点击")
 					return ;
 				};
@@ -208,6 +234,7 @@
 			}
 			pageDown(){
 				if(this.status){
+					this.toast(`下翻，旋转中不能点击`);
 					console.log("下翻，不能点击")
 					return ;
 				};
@@ -266,6 +293,7 @@
 					clearTimeout(this.timer);
 					this.timer = setTimeout(()=>{
 						this.status = 0;
+						this.toast();
 					},500);
 				}
 			}
