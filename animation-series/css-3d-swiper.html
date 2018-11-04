@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="keywords" contect="平头哥,蜜獾,@IT·平头哥联盟,Honey Badger,Badger,苏南,前端开发,前端,javscript,html,css,nodejs,react reactjs,redux,vue,蜜獾,同构直出,服务端渲染 SSR,程序员,掘金,知乎,github,首席填坑官">
+	<meta name="description" content="@IT·平头哥联盟主要分享前端、测试等领域的积累(前端开发、HTML、CSS/CSS3、新手上路、javascript、js、自动化、性能、接口系列),苏南,首席填坑官,平头哥,蜜獾,个人博客——宝剑锋从磨砺出，梅花香自苦寒来，做有温度的攻城狮,曾想仗剑走天涯 后来BUG太多就没去了">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<meta name="format-detection" content="telephone=no, email=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<title>3D swiper之美女性感秀 - @IT·平头哥联盟-首席填坑官∙苏南分享</title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			body{
+				text-align:center;
+				background: #fff;
+			}
+			.overflow{
+				overflow:hidden;
+				height:0;
+				width:0;
+			}
+			.cube-swiper{
+				width:800px;
+				height:360px;
+				margin:50px auto;
+				position:relative;
+				-webkit-perspective:1000px;
+				display:flex;
+				display:-webkit-flex;
+			}
+
+			.div-col{
+				position:relative;
+				-webkit-transform-style: preserve-3d;
+				-webkit-transition:1s -webkit-transform ease;
+				transition:1s -webkit-transform ease;
+				transform-origin:50% 50% -180px;
+				-webkit-transform-origin:50% 50%  -180px;
+			}
+
+			.div-col span{
+				position:absolute;
+				width:100%;
+				height:100%;
+				left:0;
+				right:0;
+				bottom:0;
+				top:0;
+			}
+
+			.bg-img{
+				background-image:url(./images/s01.png);
+				background-repeat: no-repeat;
+				background-position:0 0;
+			}
+			.pure-color{
+				background:#333;
+			}
+			.div-col span.i1{
+				/*top*/
+				background-image:url(./images/s08.png);
+
+				transform-origin:top;
+				-webkit-transform-origin:top;
+				transform:translateZ(-360px) rotateX(90deg);
+			}
+			.div-col span.i2{
+				/*left*/
+				transform-origin: left;
+				-webkit-transform-origin: left;
+				transform: rotateY(90deg);
+				-webkit-transform: rotateY(90deg);
+			}
+			.div-col span.i3{
+				/*right*/
+				transform-origin:left;
+				-webkit-transform-origin:left;
+				transform:translateX(25px) rotateY(90deg);
+				-webkit-transform:translateX(25px) rotateY(90deg);
+			}
+			.cube-swiper:hover .page-button{
+				opacity:1;
+			}
+			.page-button{
+				position:absolute;
+				top:50%;
+				width:40px;
+				height:40px;
+				border-radius:50%;
+				background-color:rgba(0,0,0,.8);
+				z-index:99;
+				margin-top:-30px;
+				opacity:.4;
+				transition:.3s;
+				border:1px solid rgba(255,255,255,.6);
+			}
+			.page-button:after{
+				content: "";
+				position:absolute;
+				left:50%;
+				top:50%;
+				width:10px;
+				height:10px;
+				border-color:#fff;
+				border-width:1px 1px 0 0;
+				border-style:solid;
+				transform:translate(-75%,-50%) rotateZ(45deg);
+			}
+			.page-button.l{
+				left:10px;
+			}
+			.page-button.l:after{
+				left:10px;
+				transform:translate(75%,-50%) rotateZ(-135deg);
+			}
+			.page-button.r{
+				right:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cube-swiper" id="cubSwiper">
+			<a class="page-button l" href="javascript:void(0)" title="上一张" id="prevPage"></a>
+			<a class="page-button r" href="javascript:void(0)" title="下一张" id="nextPage"></a>
+		</div>
+	<script>
+		let repairNum = (n)=>((n<10?'0':'')+n)
+		class cubSwiper{
+			constructor(props={}){
+				this.swiperEle = null;
+				this.prevPage = null;
+				this.nextPage = null;
+				this.cubeW 		= 0;
+				this.cubeH 		= 0;
+				this.colW 		= 25;
+				this.colLen 	= 0;
+				this.status 	= 0;
+				this.pageNum 	= 0;
+				this.delayMilli = 60;
+				this.timer = null;
+				this.lastColIndex = 0;
+				this.imageList = Array.from({length:14}).map((k,v)=>(`./images/s${repairNum(v+1)}.png`));
+			}
+			
+			componentDodMount(){
+				//实例，初始化执行的方法
+				this.swiperEle = document.querySelector("#cubSwiper");
+				this.prevPage = document.querySelector("#prevPage");
+				this.nextPage = document.querySelector("#nextPage");
+				this.cubeW = this.swiperEle.offsetWidth;
+				this.cubeH = this.swiperEle.offsetHeight;
+				this.colLen =Math.floor(this.cubeW / this.colW);
+				this.preloadingImage();
+				this.run();
+
+				return this;
+			}
+			run(){
+				this.colNode();
+				this.prevPage.addEventListener('click',(e)=>this.pageUp(e),false);
+				this.nextPage.addEventListener('click',(e)=>this.pageDown(e),false);
+			}
+
+			preloadingImage(){
+				this.imageList.map((k,v)=>{
+					let imgNode = new Image();
+					imgNode.onerror=err=>{
+						this.imageList.splice(v,1);
+					}
+					imgNode.src = k;
+				});
+			}
+			colNode(){
+				//生成列的节点
+				for (var i=0;i<this.colLen;i++){
+					let iDivCol = document.createElement('div'); //列
+					iDivCol.className = "div-col";
+					iDivCol.style.width = this.colW+'px';
+					iDivCol.style.height = this.cubeH+'px';
+					iDivCol.style.backgroundColor = `hsl(0, 0%, ${i+3}%)`;
+					iDivCol.style.zIndex = (i>this.colLen/2?this.colLen-i:i);
+					this.colChildrenNode(iDivCol,i);
+					this.swiperEle.appendChild(iDivCol);
+				};
+			}
+			colChildrenNode(iDivCol,index){
+				
+				for(var i = 0;i<4;i++){
+					let dividingLine = i<2;
+					let span = document.createElement('span');
+					span.className = `${dividingLine?'bg-img':'pure-color'} i${i}`;
+					span.style.width = `${dividingLine? this.colW:this.cubeH}px`;
+					span.style.height = this.cubeH+'px';
+					if(dividingLine){
+						span.style.backgroundPosition = `-${index*this.colW}px 0`;
+					};
+					iDivCol.appendChild(span);
+				};
+			}
+			pageUp(){
+				if(this.status){
+					console.log("上翻，不能点击")
+					return ;
+				};
+				this.status = 1;
+				this.pageNum = this.pageNum<=0 ? this.imageList.length-1 :--this.pageNum;
+				this.swiperAnimate();
+			}
+			pageDown(){
+				if(this.status){
+					console.log("下翻，不能点击")
+					return ;
+				};
+				this.status = 1;
+				this.pageNum = this.pageNum>=this.imageList.length-1 ? 0 :++this.pageNum;
+				this.swiperAnimate();
+			}
+			swiperAnimate(){
+
+				const _requestAnimationFrame_ = window.requestAnimationFrame||window.WebkitRequestAnimationFrame;
+				const iDivCol = this.swiperEle.querySelectorAll(".div-col");
+				for(var i=0;i<iDivCol.length;i++){
+					//让动画更逼真，给个过渡，当然也可以调整，requestAnimationFrame每次递增的值，
+					iDivCol[i].style.WebkitTransition=`.8s -webkit-transform ease`;
+					iDivCol[i].style.WebkitTransformOrigin=iDivCol[i].style.transformOrigin = "50% 50% -180px";
+					this.animateMove(iDivCol[i],i,_requestAnimationFrame_);
+					this.lastColIndex = i;
+				}
+			}
+			animateMove(Col,index,animationFrame){
+
+				let ColNum =0;
+				let spanSurface =  Col.querySelectorAll("span");
+				//即将旋转到的面，展示的图片
+				spanSurface[1].style.backgroundImage=`url(${this.imageList[this.pageNum]})`;
+				setTimeout(()=>{
+					//每列进行一个延时，以达到缓冲效果
+					this.rotate(Col,0,spanSurface,animationFrame);
+
+				},index*this.delayMilli);
+			}
+			rotate(Col,colAnimateNum,spanSurface,animationFrame){
+
+				colAnimateNum +=10;
+				let maxNum = 900;
+				if(colAnimateNum > maxNum){
+					return false;
+				} else if( colAnimateNum <= 90 ){
+					//递增的旋转角度，最大90度
+					Col.style.WebkitTransform=Col.style.transform = `translateZ(0) rotateX(-${colAnimateNum}deg)`;
+
+				}else if(colAnimateNum>=maxNum){
+					//重置
+					this.resetRotate(Col,spanSurface);
+
+				};
+				animationFrame(()=>this.rotate(Col,colAnimateNum,spanSurface,animationFrame));
+
+				return this;
+			}
+			resetRotate(Col,spanSurface){
+				Col.style.WebkitTransition=Col.style.transition=`none`;
+				Col.style.WebkitTransform=Col.style.transform = `translateZ(0px) rotateX(0deg)`;
+				spanSurface[0].style.backgroundImage=`url(${this.imageList[this.pageNum]})`;
+				if( this.lastColIndex === (this.colLen-1) && this.status){
+					clearTimeout(this.timer);
+					this.timer = setTimeout(()=>{
+						this.status = 0;
+					},500);
+				}
+			}
+		};
+		let swiper3D = new cubSwiper();
+		swiper3D.componentDodMount();
+
+	</script>
+	</body>
+</html>
