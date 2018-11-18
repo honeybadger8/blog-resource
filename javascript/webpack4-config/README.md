@@ -1,5 +1,7 @@
 ## webpack-config源码 
+
 文章名称：[webpack4配置详解之慢嚼细咽](https://honeybadger8.github.io/blog/#/frontends/webpack/config "@IT·平头哥联盟-首席填坑官∙苏南分享")
+
 作者:[首席填坑官∙苏南](https://github.com/meibin08/ "@IT·平头哥联盟-首席填坑官")
 
 
