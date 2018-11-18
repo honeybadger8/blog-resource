@@ -1,0 +1,34 @@
+@import "src/style/app";
+
+.app-container {
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0px auto;
+  overflow: hidden;
+}
+body.f3f2f7{
+  background-color: #f3f2f7;
+}
+
+.nav{
+	border-bottom:1px solid #06c;
+	padding:20px 0 15px;
+	margin-bottom:20px;
+	@include flex;
+	a{
+		@include flex-w;
+		color:#666;
+		&.active{
+			color:#06c;
+		}
+	}
+}
+
+@media screen and (min-width: 600px) {
+  .app-container {
+    max-width: 750px;
+  }
+}

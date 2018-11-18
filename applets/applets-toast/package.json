@@ -14,7 +14,7 @@
     "module-a": false,
     "./src/components/list": "./src/components/wepy-list.wpy"
   },
-  "author": "首席填坑官∙苏南 <meibin08@163.com>",
+  "author": "首席填坑官∙苏南 <susouth@163.com>",
   "keywords": [
     "react",
     "reactjs",
