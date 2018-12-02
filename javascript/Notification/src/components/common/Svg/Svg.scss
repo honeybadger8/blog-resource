@@ -1,0 +1,17 @@
+@import "src/style/index";
+.svg-icon{
+	display:inline-block;
+	fill:#bfbfbf;
+	width:40px;
+	
+	&.size-small{
+		width:30px;
+	}
+	&.size-large{
+		width:50px;
+	}
+	&:hover{
+		fill:#333;
+	}
+
+}

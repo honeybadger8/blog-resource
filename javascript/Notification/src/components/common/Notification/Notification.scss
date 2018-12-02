@@ -1,0 +1,69 @@
+// @import "src/style/index";
+
+.elf-notification{
+	position: fixed;
+	z-index: 1000;
+	width: 385px;
+	max-width: calc(100vw - 30px);
+	margin-right: 24px;
+	right:0;
+	top:20px;
+	&-notice{
+		padding: 16px 24px;
+		border-radius: 4px;
+		box-shadow: 0 4px 15px rgba(0,0,0,.18);
+		background: #fff;
+		line-height: 1.5;
+		position: relative;
+		margin-bottom: 18px;
+		overflow: hidden;
+		display: -webkit-flex;
+  	display: flex;
+  	&-content{
+  		box-flex:1;
+  		flex:1;
+  	}
+  	&-icon{
+  		width:50px;
+  		padding-right:18px;
+  		svg{
+  			width:28px;
+  			height:28px;
+  		}
+  	}
+		&-title{
+			font-size: 15px;
+			color: #1b1e31;
+			margin-bottom: 6px;
+			line-height: 24px;
+			display: inline-block;
+		}
+		&-desc{
+			font-size:13px;
+			line-height:22px;
+			color:#666;
+			white-space:pre-wrap;
+			word-wrap:break-word;
+			padding-right:20px;
+		}
+		&-colse{
+			cursor: pointer;
+			position: absolute;
+			right: 20px;
+			top: 17px;
+			color: rgba(0,0,0,.38);
+			outline: none;
+			width:20px;
+			height:20px;
+			transition:.3s all;
+			.svg-icon{
+				width:20px;
+				height:20px;
+			}
+			&:hover{
+				transform:rotate(180deg);
+			}
+		}
+	}
+
+}
